@@ -1,0 +1,14 @@
+\beamer@endinputifotherversion {3.24pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Halving Algorithm}{3}{0}{1}
+\beamer@sectionintoc {2}{The Weighted Majority Algorithm}{5}{0}{2}
+\beamer@subsectionintoc {2}{1}{Classic version - Binary predictions, finite cardinal}{7}{0}{2}
+\beamer@subsectionintoc {2}{2}{Modified version}{10}{0}{2}
+\beamer@subsectionintoc {2}{3}{Generalized version - WMG and WMC}{13}{0}{2}
+\beamer@subsectionintoc {2}{4}{Randomized version}{25}{0}{2}
+\beamer@sectionintoc {3}{Improvements}{32}{0}{3}
+\beamer@subsectionintoc {3}{1}{Exponentially Weighted Aggregation (EWA)}{33}{0}{3}
+\beamer@sectionintoc {4}{Applications}{35}{0}{4}
+\beamer@subsectionintoc {4}{1}{Applicable case}{36}{0}{4}
+\beamer@subsectionintoc {4}{2}{Non-applicable case}{39}{0}{4}
