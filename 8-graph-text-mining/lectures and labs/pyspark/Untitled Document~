@@ -1,0 +1,2 @@
+sbt package => jar
+spark-submit --master[4] => runs on 4 core

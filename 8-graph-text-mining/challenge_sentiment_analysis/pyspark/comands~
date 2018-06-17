@@ -1,0 +1,9 @@
+ssh -L 2555:master-bigdata.polytechnique.fr:8088 fabrice.zapfack@master-bigdata.polytechnique.fr
+ssh fabrice.zapfack@master-bigdata.polytechnique.fr
+
+ensuite aller sur chrome et localhost:2555
+htop and top / donne l'etat d'une machine
+
+scp ./main2.py fabrice.zapfack@master-bigdata.polytechnique.fr:~/project1
+
+spark-submit --master yarn --conf spark.ui.port=6660 /path_to_code/code.py

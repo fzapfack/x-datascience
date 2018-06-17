@@ -1,0 +1,11 @@
+run
+:w
+:q
+quit
+:quit
+:e
+exit
+quit
+exit
+run
+exit

@@ -1,0 +1,76 @@
+# >> pyspark from command line
+
+temp=range(10000)
+
+temp_rdd = sc.parallelise(temp) #ze cant print it, need collect
+
+top10 = temp_rdd.top(10)
+print top10
+
+def filt(x):
+ return x%2==0
+
+even_rdd=temp_rdd.filter(filt)
+print even_rdd.top(10)
+
+import random
+
+def newrand(x):
+ random.seed(x)
+ return (x,random.randint(1,10))
+
+rand_rdd = temp_rdd.map(newrand)
+
+def newkey(x):
+ key=int(x[0]/1000)
+ return (key,x[1])
+
+rand_rdd=rand_rdd.map(newkey)
+
+def filt(x):
+ return x[1]%2==0
+
+rand_rdd=rand_rdd.map(filt)
+
+rand_rdd=rand_rdd.groupByKey()
+
+rand_rdd=rand_rdd.map(lambda x: (x[0],list(x[1])))
+
+rand_rdd=rand_rdd.map(lambda x: (x[0],len(x[1])))
+print rand_rdd.collect()
+
+def newrand(x):
+ random.seed(x)
+ return (x,[random.randint(1,10) for i in range(0,10)])
+
+rand_rdd = temp_rdd.map(newrand)
+
+rand_rdd = temp_rdd.map(newrand).map(newkey)
+
+def flat(x):
+ result=[]
+ for v in x[1]:
+  result.append(x[0],v)
+ return result
+
+rand_rdd=rand_rdd.flatMap(flat)
+
+#regarder difference rand_rdd=rand_rdd.flatMap(flat) et rand_rdd=rand_rdd.map(flat)
+
+def countEvens(x):
+ count=0
+ for v in x[1]:
+  if v%2==0: count=count+1
+ return (x[0],count)
+
+collect_rdd = temp_rdd.map(newrand).map(newkey).map(countEvens).reduceByKey(lambda x,y : x+y).collect()
+
+#combiner les listes
+
+def combine(x,y):
+ x.extend(list(y))
+ return x
+rand_rdd=temp_rdd.map(newrand).map(newkey).aggregate([],combine,combine)
+
+
+

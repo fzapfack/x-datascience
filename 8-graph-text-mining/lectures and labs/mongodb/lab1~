@@ -1,0 +1,22 @@
+mongod --port 2020
+## another console
+mongo 127.0.0.1:2020/usersP
+show databases
+use database_name
+db.profiles.find({lastname:"Sanchez",name:"Rick"})
+
+var cursor=db.profiles.find({lastname:"Sanchez"})
+while(cursor.hasNext()){ printjson(cursor.next()); }
+
+db.profiles.find({name:{$eq:'John'}},{favorites:1, _id:0})
+
+db.profiles.aggregate([{$project:
+	{'age':
+		{$divide:[
+			{$substract:[new Date(),'$dob']},31558464000]},
+		},
+	'name':1}},
+	{$match:{age:{$gt:30}}},
+	{$group:{_id:'1',count:{$sum:1}}}
+])
+
