@@ -1,0 +1,41 @@
+-------------- Question 1 --------------
+-> We put the first 3 keys in a leaf node. 
+->To add the 4th one we will spilt this node in 2 (creating 2 nodes containing 2 keys), the value in the non leaf node created is the one in the middle. To illustrate:
+9 +  (10,11,12) ->       (11)
+		    (9,10) (11,12)  
+
+-> We will repeat this operation to add the 6th key
+        (11)        ->       (9,    11)
+7+(8,9,10) (11,12)      (7,8) (9,10) (11,12)
+
+-> We will repeat this until we have to insert 3
+         (7,    9,    11)       ->    5+(  7,   9, 11)
+3+(4,5,6)->(7,8)->(9,10)->(11,12)    (3,4)(5,6)(7,8)(9,10)(11,12)
+We will then split the non leaf node (the root can have 1 element),  thus we have
+	     (9)
+      (5, 7)    (9, 11)
+ (3,4)->(5,6)->(7,8)->(9,10)->(11,12)
+
+-> We repeat the above operations
+
+
+------------- Question 2 ------------------
+We want to insert 12 elements and the leaf nodes can contains 3 keys maximum so can create the tree below
+
+	(4	7	10)
+(1,2,3)->(4,5,6)->(7,8,9)->(10,11,12)
+
+*If we insert 1,12,7,2 we will obtain the tree
+    (7)
+(1,2)->(7,12)
+
+*Inserting 4,5, we will obtain the tree
+      (4,   7)
+(1,2)->(4,5)->(7,12)
+
+*We insert 9,10 we will obtain
+       (4,   7,  10)
+(1,2)->(4,5)->(7,9)->(10,12)
+
+*We can then insert the others keys in the order we want
+

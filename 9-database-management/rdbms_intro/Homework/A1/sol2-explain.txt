@@ -1,0 +1,10 @@
+************* Question 1 *************
+(a) The query is non monotone as if a student take for the first time ‘Operating Systems’, he will then be remove from the previous results
+
+(b) The query is non monotone by definition because if we add a younger student in our database the age in the result table will change to the new smallest age
+
+
+
+
+
+

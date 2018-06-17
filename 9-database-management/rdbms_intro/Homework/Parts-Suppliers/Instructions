@@ -1,0 +1,12 @@
+psql --host=class1.cm9lxrze8x5u.eu-west-1.rds.amazonaws.com --port=5432 --username=fab --dbname=class1
+
+
+create table suppliers(sid int,sname varchar(30),address varchar(40),primary key (sid));
+
+create table parts(pid int,pname varchar(30),color varchar(20),primary key (pid));
+
+create table catalog(sid int,pid int,cost real,primary key (sid,pid));
+
+ALTER TABLE parts ALTER COLUMN pname TYPE varchar(80);
+
+

@@ -1,0 +1,13 @@
+************ Question1 **************
+
+(1) 	Capacity_track = 512*63 = 32256 Bytes
+
+(2)	Capacity_disk = 512*63*16,383*20 = 10569000960 Bytes
+
+(3)	# Records_page = 4096/256 = 16
+
+(4)	# Records_cylinder = (512*63*20)/256 = 2520 records
+
+(5) (a) Num. of sectors = 
+
+

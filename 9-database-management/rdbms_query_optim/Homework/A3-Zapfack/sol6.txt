@@ -1,0 +1,109 @@
+**************************** Question 1 ***************************
+
+                                   QUERY PLAN                                     
+-----------------------------------------------------------------------------------
+ Bitmap Heap Scan on authors  (cost=7509.36..23571.33 rows=304637 width=19)
+   Recheck Cond: ((name)::text < 'David J. DeWitt'::text)
+   ->  Bitmap Index Scan on authors_name  (cost=0.00..7433.20 rows=304637 width=0)
+         Index Cond: ((name)::text < 'David J. DeWitt'::text)
+(4 rows)
+
+-----------------------------------------------------------------
+a) For this query, postgreSQL uses a Bitmap Heap Scan based on authors. It is a Sorting based on authors.name (slide 8)
+
+b) The estimated number of rows is 304637 and the number of rows returned is 316440
+
+c) The estimate number is based on the histogram, between "Darleen V. Pigford" and "Dean Kaptsis", that's why the estimation is not very precise.
+
+
+
+**************************** Question 2 ***************************
+
+                                  QUERY PLAN                                  
+-----------------------------------------------------------------------------
+ Index Scan using authors_name on authors  (cost=0.43..8.44 rows=1 width=19)
+   Index Cond: ((name)::text < 'A. A'::text)
+(2 rows)
+
+-----------------------------------------------------------------
+a) For this query, postgreSQL uses an Index Scan based on authors.name. It is an Unclustered index  based on name (slide 8)
+
+b) The plan is different because the estimated number of rows is 1 so it is preferable to use this index as we have to acess only on record.
+
+
+**************************** Question 3 ***************************
+
+                                        QUERY PLAN                                         
+-------------------------------------------------------------------------------------------
+ Nested Loop  (cost=5.63..213.67 rows=5 width=159)
+   ->  Nested Loop  (cost=5.20..186.24 rows=5 width=27)
+         ->  Index Scan using authors_name on authors a  (cost=0.43..8.45 rows=1 width=19)
+               Index Cond: ((name)::text = 'David J. DeWitt'::text)
+         ->  Bitmap Heap Scan on paperauths pa  (cost=4.78..177.36 rows=44 width=8)
+               Recheck Cond: (authid = a.id)
+               ->  Bitmap Index Scan on paperauths_pkey  (cost=0.00..4.76 rows=44 width=0)
+                     Index Cond: (authid = a.id)
+   ->  Index Scan using papers_pkey on papers p  (cost=0.43..5.48 rows=1 width=132)
+         Index Cond: (id = pa.paperid)
+(10 rows)
+
+-----------------------------------------------------------------
+a) The plan used is to use an Index Scan based on authors.name for the selection. then use the index on papers_pkey to join the relations authors and paperauths (via nested loops on selected records) and later use papers_pkey to join the previous result with papers (via nested loops on selected records).
+
+b) For this query, postgreSQL logically estimates that it is better first to select authors whose name is 'David J. DeWitt' (one record cause the name attribute is unique). For that it used . The id of the author will then be used to perform the join on pa.authid = a.id. Later it will do the join on pa.paperid = p.id
+
+c) The estimated number of rows is 5 and the actual number is 186.
+The numbers are differents because the authors in the table paperauths arre supposed to be equally distributed. Or there a lot of arers written by 'David J. DeWitt' 204891 
+
+
+
+**************************** Question 4 ***************************
+
+                                             QUERY PLAN                                              
+-----------------------------------------------------------------------------------------------------
+ Hash Join  (cost=229008.02..644691.89 rows=1620761 width=159)
+   Hash Cond: (pa.paperid = p.id)
+   ->  Hash Join  (cost=29164.29..334820.80 rows=1620761 width=27)
+         Hash Cond: (pa.authid = a.id)
+         ->  Seq Scan on paperauths pa  (cost=0.00..138625.48 rows=8998448 width=8)
+         ->  Hash  (cost=23571.33..23571.33 rows=304637 width=19)
+               ->  Bitmap Heap Scan on authors a  (cost=7509.36..23571.33 rows=304637 width=19)
+                     Recheck Cond: ((name)::text < 'David J. DeWitt'::text)
+                     ->  Bitmap Index Scan on authors_name  (cost=0.00..7433.20 rows=304637 width=0)
+                           Index Cond: ((name)::text < 'David J. DeWitt'::text)
+   ->  Hash  (cost=98934.99..98934.99 rows=3150299 width=132)
+         ->  Seq Scan on papers p  (cost=0.00..98934.99 rows=3150299 width=132)
+(12 rows)
+
+
+-----------------------------------------------------------------
+a) For this query, postgreSQL uses a Bitmap Heap Scan based on authors.name to select the corresponding records. The joins are done later using hash joins.
+
+b) The choice of a Bitmap Heap Scan based on authors.name is straightforward from question 1. The choice of hash join is probably due to the fact that the relations size differ greatly, especially after the selection
+
+
+
+**************************** Question 5 ***************************
+
+                                      QUERY PLAN                                      
+--------------------------------------------------------------------------------------
+ Hash Join  (cost=258699.29..910551.47 rows=7377687 width=159)
+   Hash Cond: (pa.paperid = p.id)
+   ->  Hash Join  (cost=58855.56..428422.33 rows=7377687 width=27)
+         Hash Cond: (pa.authid = a.id)
+         ->  Seq Scan on paperauths pa  (cost=0.00..138625.48 rows=8998448 width=8)
+         ->  Hash  (cost=33395.76..33395.76 rows=1386704 width=19)
+               ->  Seq Scan on authors a  (cost=0.00..33395.76 rows=1386704 width=19)
+                     Filter: ((name)::text > 'David J. DeWitt'::text)
+   ->  Hash  (cost=98934.99..98934.99 rows=3150299 width=132)
+         ->  Seq Scan on papers p  (cost=0.00..98934.99 rows=3150299 width=132)
+(10 rows)
+
+
+
+-----------------------------------------------------------------
+a) For this query, postgreSQL uses a filter to select the corresponding records. The joins are done later using hash joins.
+
+b) The choice of not using the index can be explained because the estimated number of rows is very large and a sequential scan filtering is then better.
+
+

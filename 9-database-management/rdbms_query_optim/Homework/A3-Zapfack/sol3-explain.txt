@@ -1,0 +1,35 @@
+********* Question 1 *******
+For the sort merge join, we will first sort the relations 
+R => 1 2 3 3 6 7 8 9 9
+S => 1 2 2 3 3 4 7 8 
+
+and then merge them (the join attribute has to be the only attribute )
+
+R join S => 1 2 2 3 3 3 3 7 8
+
+
+********* Question 2 *******
+We have the explixit hash function (pair/not pair)
+Phase 1 Partitioning : Partition both relation
+	R :
+	   - Buket 0 = 2 8 6
+	   - Buket 1 = 7 9 3 9 1 3 
+	S :
+	   - Buket 0 = 8 4 2 2
+	   - Buket 1 = 1 3 7 3
+
+Phase 2 Probing:
+- Read in partition Ri,
+- Scan partition Si, one page at a time, search for matches
+
+	We start with the bucket 0 :
+		We read R and scan S sequentially
+			-> 8 2 2 
+		we write to output
+	We continue with the bucket 1 :
+		We read R and scan S sequentially
+			-> 1 3 3 7 3 3
+		we write to output
+
+The final result will then be 8 2 2 1 3 3 7 3 3  
+ 

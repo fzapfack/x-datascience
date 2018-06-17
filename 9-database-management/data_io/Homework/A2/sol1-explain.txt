@@ -1,0 +1,29 @@
+************ Question1 **************
+
+(1) 	Capacity_track = 512*63 = 32256 Bytes
+
+(2)	Capacity_disk = 512*63*16,383*20 = 10569000960 Bytes
+
+(3)	# Records_page = 4096/256 = 16
+
+(4)	# Records_cylinder = (512*63*20)/256 = 2520 records
+
+(5) (a) # sectors = file size/sector size = 1000000*256/512 = 500,000 sectors
+    
+    (b) # pages = # records/ # records_page = 1,000,000/16 = 62,500 pages
+
+    (c) # cylinders = # records/ # records_cylinder = 1000000/2520 = 396,83 ~= 397
+
+(6) (a)	seek time (moving arms to position a disk head on a track) = if we start from a random track we will have to go to the first track (average seek time) and we will only move the track to go from a cylinder to the next one = 9 + 397*1 = 406 msec
+    (b) Rotational delay (waiting for a block to rotate under the head)  = Starting from an unknow position we will have to rotate half the disk on average to go to first sector position  = 1/2*60/7200 = 4.17 msec
+    (c) Transfer time (waiting for a block to rotate under the head)  = we know that to read the file we need to perform around 397 revolutions. Or we have from the speed the time needed to do 1 revolution = 397*60/7200 = 3,308 msec
+    (d) Total = seek time + Rotational delay + Transfer time = 406 + 4.17 + 3,308 = 3,718 ms
+
+(7) (a) Cost per page : - seek time : A page fits on a track = 9 ms
+			- Rotational delay : same = 1/2*60/7200 = 4.17 msec
+			- Transfer time : Time to reed a complete track * proportion of a page on a track(page size/Capacity_track) = 60/7200 * 4096/32256 = 1.05 msec
+			- Total : seek time + Rotational delay+ Transfer time = 9 + 4.17 + 1.05 = 14.22 ms
+    
+    (b) Total cost = # pages * time for 1 page = 50/100*62,500 * 14.22 = 444,375 msec
+
+

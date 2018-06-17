@@ -1,0 +1,18 @@
+- EC2 instance created
+	ssh -i "class3.pem" ubuntu@ec2-52-48-236-102.eu-west-1.compute.amazonaws.com
+
+- Install wget
+- Install postgresql
+
+- log to RDS
+	psql --host=class2.cm9lxrze8x5u.eu-west-1.rds.amazonaws.com --port=5432 --username=fab --dbname=class2
+
+==> CREATE USER student PASSWORD 'superpassword';
+
+==> Create indexes
+
+- \d to see the tables and \di the idexes
+
+
+
+

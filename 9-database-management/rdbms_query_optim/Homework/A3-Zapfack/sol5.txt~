@@ -1,0 +1,29 @@
+********* Question 1 *******
+To Find an optimal using dynamic programing we need to do different tasks
+	- Find the best plans to access the diffenrents relations. 
+		The number of plans evaluated will then be proportional to the number of relations O(n). 
+	- Find the best plans for joining 2 relations (This procedure is revised if given specific join predicates)  : A-B, A-C, A-D, B-A, B-C, B-D, C-A, C-B, C-D,D-A, D-B, D-C, ...; store the best for (A-B), (A-C), (A-D), (B-C), (B-D), (C-D)
+		The number of plans to be evaluated is n*n-1
+	
+	- Repeat this for 3 relation sets... 
+		The number of plans to be evaluated is n-2
+	- Repeat this for 4 relation sets... 
+		The number of plans to be evaluated is n-3
+	- We will have to repeat it until we join all the relation 
+	  The number of plans evaluated from step 3 to end is n-2 + n-3 + n-4 + ... + 0, arithmetic sequence of term = -1. 
+	  0 = n-2 - #terms => #terms = n-2
+	  	The number of plans evaluated is then 0.5*(n-2)^2
+
+	=> The total number of plans evaluated is O(n) + n*n-1 + 0.5*(n-2)^2 = O(n^2)
+
+
+Let's take the example of the join graph :
+	- Find the best plans to access A, B, C, D individually
+		-> O(4)
+	- Find the best plans for joining A-B, A-C, A-D, B-A, C-A, D-A,; store the best for (A-B), (A-C), (A-D)
+		-> 6 plans to be evaluated
+	- Repeat this for 3 relation sets
+		-> 2 plans to be evaluated
+	- Repeat this for 4 relation sets
+		-> 1 plan to be evaluated
+

@@ -1,0 +1,35 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\begin{document}
+	\section*{Exercise 3}
+		\subsection*{Query 1}
+			$$Q1 = \pi_{sname, color}(Catalog \bowtie  Suppliers) $$
+			
+		\subsection*{Query 2}
+			$$Q2 = \pi_{pname, color}(Parts \bowtie  Catalog \bowtie  ( \sigma_{sname='Perfunctory Parts'}(Suppliers)) $$
+		\subsection*{Query 3}
+			$$Q3 = \pi_{sname}((\sigma_{cost < 100} (Catalog) \bowtie Suppliers) \bowtie (\sigma_{color='red'}(Parts)) $$\\
+			\\Let's have R1 and R2 shuch that :
+			$$\rho(R1,\pi_{sname}((\sigma_{color='red'}(Parts)) \bowtie  (\sigma_{cost < 100})$$
+$$\rho(R2,\pi_{sname}((\sigma_{color='green'}(Parts)) \bowtie  (\sigma_{cost < 100})$$
+		\subsection*{Query 4}
+			$$Q4 = \pi_{sname}((R1 \cup R2) \bowtie Suppliers) $$
+		\subsection*{Query 5}
+			$$Q5 = \pi_{sname}((R1 \cap R2) \bowtie Suppliers) $$
+		\subsection*{Query 6}
+			Let's have R1 and R2 shuch that :
+			$$\rho(R1,Catalog)$$
+			$$\rho(R2,Catalog)$$
+			$$Q6 = \pi_{pid}(\sigma_{R1.pid=R2.pid \wedge R1.sid =R2.sid})(R1 \times R2)$$
+
+		\subsection*{Query 7}
+			let's have :
+			$$\rho(S_{neg},\pi_{sid}(Catalog)\times \pi_{pid}((\sigma_{color='red'}(Parts)) - \pi_{sid,pid}(Catalog))$$
+			$$Q7 = \pi_{sname}(\pi_{sid}(Catalog)- S_{neg})  \bowtie Suppliers)$$
+					
+		\subsection*{Query 8}
+			$$Q8 = \pi_{sname}((\pi_{sid}(Catalog)-\pi_{cost >= 100}(Catalog))\bowtie Suppliers)$$
+	
+	
+\end{document}

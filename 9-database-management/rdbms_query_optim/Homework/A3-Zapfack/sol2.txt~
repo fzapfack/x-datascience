@@ -1,0 +1,27 @@
+(If no records satify the cost will be 0)
+****************** Question 1 *******************
+In alternative 2, the leaf nodes contains the data entries. To evaluate the cost we need to evaluate 3 differents costs:
+	- Top down search : ~= 3 or 4 I/Os
+	- Scan relevant nodes : if 0.1 of tuples qualify, 10000/10=1000 pages, 20*1000=20,000 tuples.
+Scanning leaf nodes: if a data entry is 20 bytes/100 bytes = 1/5 of a tuple, need 20000/(5*20)=200 leaf nodes to store them, so 200 I/Os.
+	- retrieve records from file : Having no indications we will suppose the unclustered case, so we need 1 I/O per data entry, in total 20,000 I/Os
+	- To sum up we will need 4 + 20,000 + 200 = 20,204 data entries
+
+
+****************** Question 2 *******************
+2 Indexes can be used:
+- The hash index on age
+	if 0.1 of tuples qualify, 10000/10=1000 pages, 20*1000=20,000 data entries to access. The records are read by following each of the data entry.
+	The cost is then 2*20,000 = 40,000 I/Os
+
+- clustered B+ tree index on <age, sal >
+	What change from question 1 is the cost retrieve recors from file (by following data entry): instead of paying a price for each record, we only need to read page by page. The 20,000 records will be stored in 20,000/20 = 1000 pages
+	The total cost is then 4 + 200 + 1000 = 1204 I/Os
+
+****************** Question 3 *******************
+eid being a primary key, we have a hash index on it and we know we have at most 1 record for a given value. The cost of this selection will be 1 (or 0)
+
+
+****************** Question 4 *******************
+Having an inequality condition on age, we wont use the hash index on age. The 
+

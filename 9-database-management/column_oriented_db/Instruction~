@@ -1,0 +1,11 @@
+ssh fzapfack@ssh.enst.fr
+ssh lame15
+password rE9RSgRY
+
+scp ./WordCount.java fzapfack@ssh.enst.fr:~/Week5
+
+hadoop fs -put text.txt /user/fzapfack
+hadoop fs -ls /user/fzapfack
+hadoop jar wordcount.jar WordCount /user/fzapfack/text.txt /user/fzapfack/t01
+
+hadoop fs -ls t01

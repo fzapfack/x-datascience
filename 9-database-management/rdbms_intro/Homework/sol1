@@ -1,0 +1,47 @@
+************* Question 1 **************
+If we take the example in lect2-slide31, the division is obtain by 
+A/B = T1 - T2 avec:
+	T1 = Proj schema(A) - schema(B) (A)
+	T2 = Proj schema(A) - schema(B) ((Proj schema(A) - schema(B) (A) X B) - A)
+
+Example:
+Let's have (Proj = Proj{schema(A) - schema(B)})
+		A : X1 Y1
+		    X2 Y1
+		    X1 Y2
+
+		B : Y1
+		    Y2
+
+	       T1 : X1
+		    X2
+
+     Proj (A) X B : X1 Y1
+	   	    X1 Y2
+	            X2 Y1
+	            X2 Y2
+
+(Proj (A) X B) -A : X2 Y2
+
+	       T2 : X2
+
+	   T1 -T2 : X1
+
+
+
+
+
+
+************ Question 2 **************** (the justification is starigth-forward)
+(a) Monotonic
+(b) Monotonic
+(c) Non monotonic
+(d) Monotonic
+(e) Monotonic
+(f) Monotonic
+
+
+	
+
+
+	

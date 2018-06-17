@@ -1,0 +1,20 @@
+****************** Question 1 *******************
+In the first pass we will different runs containing 21 pages. The number of runs is 1,000,000/21 = 47,620 runs
+
+
+****************** Question 2 *******************
+After the first pass 1 buffer will be used. The other buffers are used to sort the runs obtained at the previous pass.
+The number of additionnal passes needed is log_20(47620)=ln(47620)/ln(20)=4. The total number of passes needed to sort the file completely is 4+1=5
+
+
+****************** Question 3 *******************
+At every passes we have to read each pages in memory and write it in an output.
+So in total we do 5*47620*2 = 476200 I/Os
+
+
+****************** Question 4 *******************
+Using question 2 and x beeing the number of pages, we want log_x-1(1000000/x)<=1 ==> x-1>=1000000/x 
+	==> x^2 -x - 1000000 = 0, delta=1+4000000, x1=(1+sqrt(4000001))/2 ~= 1001
+
+So we need a least 1001 buffers
+

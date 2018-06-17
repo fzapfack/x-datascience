@@ -1,0 +1,47 @@
+*************** Question 1 *****************
+R is the smaller relation, so it will be used as the "build" relation in the probing phase. The hybrid hash join algorithm requires us to keep one of the buckets of the R's partitioning in memory. We will first hash S using the full 40 pages buffer which is enough memory, then we take care of R : 
+
+Partitioning phase : Assuming all the buckets have the same size, we have x buckets of size y pages after hashing R. If we keep one bucket in memory, during partitioning 
+phase, we have B - y pages left for the partition ie. B - y buckets, so B - y = x. Since x*y = 400 pages, (40 - y)y = 400 (B=40), so y = 20. Therefore with 20 buckets of size 20,
+there is enough memory for the partitioning phase.
+
+Probing phase : Let us suppose that we kept the first bucket of R in memory (called R_1). Then we start by scanning S_1 and searching for matches with R_1, then we empty the buffer and 
+do the classical algorithm that fits in memory.
+
+There is enough memory to perform the hybrid hash join algorithm.
+
+*************** Question 2 *****************
+In (1) we established that we needed 20 buckets of size 20 to perform the hybrid join algorithm.
+For the classical join algorithm, we can use up to 40 buckets since we have 40 buffer pages available (neglecting the additional 2 pages required to scan S and to output the result).
+
+*************** Question 3 *****************
+Partitioning : 400 I/Os to read R, 500 I/Os to read S, 500 I/Os to write S, 400 - 20 = 380 I/Os to write R 
+Probing : 500 I/Os to scan S, 380 I/Os to read the buckets of R that aren't stored in the buffer.
+
+Total : 3*(400+500) - 2*20 = 2640 I/Os.
+
+*************** Question 4 *****************
+Step 1 : Hash R into 20 buckets of size 20 such that 2 elements with the same 'a' attribute are in the same hash bucket (the hash buckets can't directly be the groups since there 
+can be more groups than available buffer pages). Keep the first bucket in memory and write the 19 other ones. 
+
+Step 2 : For each bucket in memory, count all the elements with the same 'a' attribute and output the result.
+
+I/O cost : 
+
+Step 1 : 400 I/Os to read R, 400 - 20 = 380 I/Os to write the buckets.
+
+Step 2 : 380 I/Os to read the buckets on disk.
+
+Total cost : 400 + 2*380 = 1160 I/Os.
+
+*************** Question 5 *****************
+- If B>U, then we have enough memory to store the full data structure that matches distinct values of R.a to the count. Therefore the I/O cost is only the I/O cost to read R.
+Cost : read R.
+
+-Let us find the minimum number of memory needed to complete the query by reading R at most twice. Let K be the bucket containing the largest number N of distinct values of R.a
+hashed to the same value. In order to read R at most twice, we need to be able to complete the same query on K in only one pass (since we already read the elements of K in the 
+first pass). So we need N - 1 < U - B. If we assume that all the R.a's are equally filled each one of the B buckets is full, so U = B^2 ie. B = sqrt(U) is the minimum amount of
+buffer pages required. If there is no such assumption, all buckets can contain only one R.a value except one that will contain lots of distinct R.a's hashed to the same value.
+In this case, U = 2B ie. B = U/2 is the minimum number of buffer pages required.
+
+

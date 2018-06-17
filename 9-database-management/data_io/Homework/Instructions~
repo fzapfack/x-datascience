@@ -1,0 +1,9 @@
+psql --host=class2.cm9lxrze8x5u.eu-west-1.rds.amazonaws.com --port=5432 --username=fab --dbname=class2
+
+
+ssh fzapfack@ssh.enst.fr
+ssh lame11
+
+psql -d fabrice_zapfack -U fabrice_zapfack -W
+"\d" to see the tables in database
+

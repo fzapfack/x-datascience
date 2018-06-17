@@ -1,0 +1,33 @@
+************* Question 2 *************
+-> Computation of allCauseEffect table
+	- Base Case : 
+			a	d
+			b	d
+			c	e
+			d	f
+			d	g
+			e	x
+			g	x
+	- iteration 1 : 
+			a	f
+			b	f
+			a	g
+			b	g
+			c	x
+			d	x
+	- iteration 2 : 
+			a	x
+			b	x
+			c	x
+			d	x
+
+-> Q2 Result
+			a	d
+			b	d
+			c	e
+			d	f
+			d	g
+			a	f
+			b	f
+			a	g
+			b	g

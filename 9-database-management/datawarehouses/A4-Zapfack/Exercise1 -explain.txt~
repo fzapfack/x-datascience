@@ -1,0 +1,4 @@
+- For the applications (a),(b),(c),(d) it is more suitable to use OLTP databases because we are dealing with operationnal informations. These types of operations (check bank account balance, by a ticket, update location, buy a book,...) fit the requirements of OLTP databases (slides 5 in the lectures notes).
+
+- For the applications (a),(b),(c),(d) it is more suitable to use OLAP databases because those analysis are made from aggregation of informations from differents sources (operationnal databases from differents, shops or differents services for example). We also perform analytics orperations on those data.
+

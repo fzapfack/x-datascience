@@ -1,0 +1,27 @@
+------------- Question 1 --------------
+(1)  950 + 200 > 1024, so we need to reogarnise the page in order to insert the record.Let's image we are able to reoganise the page (put the free space at the end) we will then have (imagine we can change the RID)
+ ___________________________________________
+|(0, 200) | (200, 300) | (500, 150) | 3 | 650| 
+    3		1	    2
+ ___________________________________________
+
+We will simply add the new record to the begining of the free space (respecting the RID)
+ ________________________________________________________
+|(650,200) | (0, 200) | (500, 150) | (200, 300) | 4 | 850| 
+    4		3	    2		1
+ ________________________________________________________
+
+
+------------- Question 1 --------------
+We delete the record Rid = (15,3) : we set his offset to -1
+ ________________________________________________________
+|(650,200) | (-1, 200) | (500, 150) | (200, 300) | 4 | 850| 
+    4		3	    2		1
+ ________________________________________________________
+
+If we want to add a 300 bytes length record, we will need to reaogranise the page (850+300>1024)
+
+ ________________________________________________________
+|(750,200) | (450, 300) | (300, 150) | (0, 300) | 4 | 950| 
+    4		3	    2		1
+ ________________________________________________________

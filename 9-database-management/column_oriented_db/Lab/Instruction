@@ -1,0 +1,48 @@
+ssh fzapfack@ssh.enst.fr
+ssh lame15
+password rE9RSgRY
+
+scp ./WordCount.java fzapfack@ssh.enst.fr:~/Week5
+
+hadoop fs -put text.txt /user/fzapfack
+hadoop fs -ls /user/fzapfack
+hadoop jar wordcount.jar WordCount /user/fzapfack/text.txt /user/fzapfack/t01
+
+hadoop fs -ls t01
+
+
+---------------------------------
+. /usr/local/bin/hadoop_env
+head -4 /infres/ir430/bd/dsm2/datasets/dblp_text/paperauths.tsv
+
+scp ./Q1.java fzapfack@ssh.enst.fr:~/Week6
+
+hadoop fs -put /infres/ir430/bd/dsm2/datasets/dblp_text/paperauths.tsv /user/fzapfack/paperauths.tsv
+hadoop fs -get Q1 ./
+
+javac -cp $HADOOP_CLASSPATH -d . Q1.java
+
+jar cf Q1.jar Q1*.class 
+jar tf Q1.jar
+
+hadoop jar Q1.jar Q1 /user/fzapfack/paperauths.tsv /user/fzapfack/Q1 10
+
+scp ./Q2.java fzapfack@ssh.enst.fr:~/Week6
+javac -cp $HADOOP_CLASSPATH -d . Q2.java
+jar cf Q2.jar Q2*.class 
+hadoop jar Q2.jar Q2 /user/fzapfack/paperauths.tsv /user/fzapfack/Q2 10
+
+hadoop fs -ls Q1
+hadoop fs -cat Q1/part-r-00000	
+hadoop fs -tail Q1/part-r-00000
+hadoop fs -cat Q1/part-r-00000 | head
+hadoop fs -cat temp/part-r-00000 | head
+
+
+-----------------
+hadoop fs -rm -r -f /user/fzapfack/Q1
+hadoop fs -rm -r -f /user/fzapfack/temp
+
+hadoop job -list
+hadoop job -kill $
+----------------

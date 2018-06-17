@@ -76,8 +76,18 @@ Class given by Frocncois Yvon from universite Paris Sud
 Lectures and labs given by Michalis Vazirgiannis from Ecole Polytechnique:
 * Graph mining: clustering, classification, community evaluation, ...
 * Text mining: Bag-of-words, words vectors, graph of words, ...
-* `Sentiment anylis challenge`: bag-of-words (using pyspark on big datasets) and word2vec (gensim smaller datasets)
+* `Sentiment analysis`: bag-of-words (using pyspark on big datasets) and word2vec (gensim smaller datasets)
+* `challenge links prediction`: predict links in an incomplete citation graph
 
+## 9 - Databases Management
 
+Class given by **Prof Yanlei Diao**:
+* Introduction to Relationnal Database Management Systems
+* Queries optimization
+* Concurrency and crash recovery
+* Parallel computing
+* Datawarehousing
 
+## Books
 
+## Internship
